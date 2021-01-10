@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DisciplineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/disciplines', [DisciplineController::class, 'index']);
+Route::get('/disciplines/{discipline}', [DisciplineController::class, 'show']);
+Route::post('/disciplines', [DisciplineController::class, 'store']);
+Route::put('disciplines/{discipline}', [DisciplineController::class, 'update']);
+Route::delete('disciplines/{discipline}', [DisciplineController::class, 'destroy']);
