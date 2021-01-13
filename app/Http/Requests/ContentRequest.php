@@ -7,12 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class DisciplineRequest extends FormRequest
+class ContentRequest extends FormRequest
 {
     /**
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -20,12 +20,17 @@ class DisciplineRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
+            'discipline_id' => [
+                'required',
+                'integer',
+                'exists:disciplines,id'
+            ],
             'title' => [
                 'required',
-                'unique:disciplines'
+                'unique:contents'
             ]
         ];
     }
@@ -36,11 +41,14 @@ class DisciplineRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'discipline_id.required' => 'O campo "Disciplina" é obrigatório',
+            'discipline_id.integer' => 'O valor ":input" do campo "Disciplina" é inválido',
+            'discipline_id.exists' => 'A "Disciplina" informada não está cadastrada',
             'title.required' => 'O campo "Título" é obrigatório',
-            'title.unique' => 'A disciplina ":input" já está cadastrada'
+            'title.unique' => 'O contéudo ":input" já está cadastrado'
         ];
     }
-
+    
     /**
      * @param Validator $validator
      * @return void
