@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ContentRequest extends FormRequest
+class SummaryRequest extends FormRequest
 {
     /**
      * @return bool
@@ -24,16 +24,20 @@ class ContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'discipline_id' => [
+            'content_id' => [
                 'required',
                 'integer',
-                'exists:disciplines,id'
+                'exists:contents,id'
             ],
             'title' => [
                 'required',
-                Rule::unique('contents')->ignore(
-                    $this->route()->parameters['content'] ?? null
+                Rule::unique('summaries')->ignore(
+                    $this->route()->parameters['summary'] ?? null
                 )
+            ],
+            'free' => [
+                'required',
+                'boolean'
             ]
         ];
     }
@@ -44,14 +48,16 @@ class ContentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'discipline_id.required' => 'O campo "Disciplina" é obrigatório',
-            'discipline_id.integer' => 'O valor ":input" do campo "Disciplina" é inválido',
-            'discipline_id.exists' => 'A "Disciplina" informada não está cadastrada',
+            'content_id.required' => 'O campo "Conteúdo" é obrigatório',
+            'content_id.integer' => 'O valor ":input" do campo "Conteúdo" é inválido',
+            'content_id.exists' => 'O "Conteúdo" informado não está cadastrado',
             'title.required' => 'O campo "Título" é obrigatório',
-            'title.unique' => 'O contéudo ":input" já está cadastrado'
+            'title.unique' => 'O resumo ":input" já está cadastrado',
+            'free.required' => 'O campo "Gratuito" é obrigatório',
+            'free.boolean' => 'O valor ":input" do campo "Gratuito" é inválido'
         ];
     }
-    
+
     /**
      * @param Validator $validator
      * @return void

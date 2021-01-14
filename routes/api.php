@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\SummaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,9 @@ Route::get('contents/{content}', [ContentController::class, 'show']);
 Route::post('contents', [ContentController::class, 'store']);
 Route::put('contents/{content}', [ContentController::class, 'update']);
 Route::delete('contents/{content}', [ContentController::class, 'destroy']);
+
+Route::get('summaries', [SummaryController::class, 'index']);
+Route::get('summaries/{summary}', [SummaryController::class, 'show']);
+Route::post('summaries', [SummaryController::class, 'store']);
+Route::put('summaries/{summary}', [SummaryController::class, 'update']);
+Route::delete('summaries/{summary}', [SummaryController::class, 'destroy']);

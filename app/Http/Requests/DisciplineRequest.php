@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
@@ -25,7 +26,9 @@ class DisciplineRequest extends FormRequest
         return [
             'title' => [
                 'required',
-                'unique:disciplines'
+                Rule::unique('disciplines')->ignore(
+                    $this->route()->parameters['discipline'] ?? null
+                )
             ]
         ];
     }
