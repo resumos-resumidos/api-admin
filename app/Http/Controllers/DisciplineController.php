@@ -35,6 +35,8 @@ class DisciplineController extends Controller
      */
     public function show(Discipline $discipline): JsonResponse
     {
+        $discipline->contents;
+
         return response()->json($discipline, JsonResponse::HTTP_OK);
     }
 
