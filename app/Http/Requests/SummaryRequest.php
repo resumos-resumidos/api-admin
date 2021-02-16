@@ -51,7 +51,7 @@ class SummaryRequest extends FormRequest
             'content_id.required' => 'O campo "Conteúdo" é obrigatório',
             'content_id.integer' => 'O valor ":input" do campo "Conteúdo" é inválido',
             'content_id.exists' => 'O "Conteúdo" informado não está cadastrado',
-            'title.required' => 'O campo "Título" é obrigatório',
+            'title.required' => 'O campo "Resumo" é obrigatório',
             'title.unique' => 'O resumo ":input" já está cadastrado',
             'free.required' => 'O campo "Gratuito" é obrigatório',
             'free.boolean' => 'O valor ":input" do campo "Gratuito" é inválido'
@@ -65,7 +65,7 @@ class SummaryRequest extends FormRequest
     protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(
-            response()->json($validator->errors(), 
+            response()->json($validator->errors(),
             JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

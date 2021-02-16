@@ -39,7 +39,7 @@ class DisciplineRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'O campo "Título" é obrigatório',
+            'title.required' => 'O campo "Disciplina" é obrigatório',
             'title.unique' => 'A disciplina ":input" já está cadastrada'
         ];
     }
@@ -51,7 +51,7 @@ class DisciplineRequest extends FormRequest
     protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(
-            response()->json($validator->errors(), 
+            response()->json($validator->errors(),
             JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
