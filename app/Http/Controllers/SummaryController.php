@@ -39,6 +39,8 @@ class SummaryController extends Controller
      */
     public function show(Summary $summary): JsonResponse
     {
+        $summary->content->discipline;
+
         return response()->json($summary, JsonResponse::HTTP_OK);
     }
 
