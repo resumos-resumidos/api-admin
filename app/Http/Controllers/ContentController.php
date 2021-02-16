@@ -15,6 +15,10 @@ class ContentController extends Controller
     {
         $contents = Content::all();
 
+        foreach ($contents as $content) {
+            $content->discipline;
+        }
+
         return response()->json($contents, JsonResponse::HTTP_OK);
     }
 
