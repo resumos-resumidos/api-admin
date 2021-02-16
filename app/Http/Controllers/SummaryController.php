@@ -15,6 +15,10 @@ class SummaryController extends Controller
     {
         $summaries = Summary::all();
 
+        foreach ($summaries as $summary) {
+            $summary->content->discipline;
+        }
+
         return response()->json($summaries, JsonResponse::HTTP_OK);
     }
 
