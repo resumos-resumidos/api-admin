@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Content;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ContentRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ContentController extends Controller
 {
@@ -60,6 +61,15 @@ class ContentController extends Controller
      */
     public function destroy(Content $content): JsonResponse
     {
+        if ($content->summaries()->count() > 0) {
+            throw new HttpResponseException(
+                response()->json(
+                    'Não é possível excluir esse conteúdo pois possuem resumos cadastrados para ele',
+                    JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+                )
+            );
+        }
+
         $content->delete();
 
         return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
