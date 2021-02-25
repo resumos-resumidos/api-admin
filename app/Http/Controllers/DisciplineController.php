@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Discipline;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\DisciplineRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class DisciplineController extends Controller
 {
@@ -58,6 +59,15 @@ class DisciplineController extends Controller
      */
     public function destroy(Discipline $discipline): JsonResponse
     {
+        if ($discipline->contents->count() > 0) {
+            throw new HttpResponseException(
+                response()->json(
+                    'Não é possível excluir essa disciplina pois possuem conteúdos cadastrados para ela',
+                    JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+                )
+            );
+        }
+
         $discipline->delete();
 
         return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
