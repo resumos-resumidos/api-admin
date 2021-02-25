@@ -25,6 +25,7 @@ class DisciplineRequest extends FormRequest
     {
         return [
             'title' => [
+                'bail',
                 'required',
                 Rule::unique('disciplines')->ignore(
                     $this->route()->parameters['discipline'] ?? null

@@ -25,11 +25,13 @@ class ContentRequest extends FormRequest
     {
         return [
             'discipline_id' => [
+                'bail',
                 'required',
                 'integer',
                 'exists:disciplines,id'
             ],
             'title' => [
+                'bail',
                 'required',
                 Rule::unique('contents')->ignore(
                     $this->route()->parameters['content'] ?? null

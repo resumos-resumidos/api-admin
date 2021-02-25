@@ -25,17 +25,20 @@ class SummaryRequest extends FormRequest
     {
         return [
             'content_id' => [
+                'bail',
                 'required',
                 'integer',
                 'exists:contents,id'
             ],
             'title' => [
+                'bail',
                 'required',
                 Rule::unique('summaries')->ignore(
                     $this->route()->parameters['summary'] ?? null
                 )
             ],
             'free' => [
+                'bail',
                 'required',
                 'boolean'
             ]
