@@ -52,8 +52,10 @@ class DisciplineRequest extends FormRequest
     protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(
-            response()->json($validator->errors(),
-            JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            response()->json(
+                $validator->errors(),
+                JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+            )
         );
     }
 }
