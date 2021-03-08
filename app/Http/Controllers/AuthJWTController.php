@@ -6,6 +6,8 @@ use Validator;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthJWTController extends Controller
 {
@@ -13,19 +15,15 @@ class AuthJWTController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function login(Request $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], JsonResponse::HTTP_UNAUTHORIZED);
+        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
+            throw new HttpResponseException(
+                response()->json(
+                    'A senha inserida está incorreta.',
+                    JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+                )
+            );
         }
 
         return $this->createNewToken($token);
