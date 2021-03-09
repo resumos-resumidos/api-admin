@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthJWTMiddleware extends BaseMiddleware
 {
@@ -22,14 +23,21 @@ class AuthJWTMiddleware extends BaseMiddleware
     {
         try {
             JWTAuth::parseToken()->authenticate();
-        } catch (Exception $exception) {
-            if ($exception instanceof TokenInvalidException) {
-                return response()->json(['status' => 'Token is invalid']);
-            } elseif ($exception instanceof TokenExpiredException) {
-                return response()->json(['status' => 'Token is expired']);
+        } catch (Exception $e) {
+            if ($e instanceof TokenInvalidException) {
+                $error = 'O token de autenticação informado é inválido';
+            } elseif ($e instanceof TokenExpiredException) {
+                $error = 'O token de autenticação informado está expirado';
             } else {
-                return response()->json(['status' => 'Token not found']);
+                $error = 'O token de autenticação não foi informado';
             }
+
+            throw new HttpResponseException(
+                response()->json(
+                    $error,
+                    JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+                )
+            );
         }
 
         return $next($request);
