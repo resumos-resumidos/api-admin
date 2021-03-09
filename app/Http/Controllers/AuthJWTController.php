@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthJWTController extends Controller
@@ -33,21 +34,11 @@ class AuthJWTController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $user = User::create(array_merge(
-            $validator->validated(),
-            ['password' => bcrypt($request->password)]
+            $request->only(['name', 'email']),
+            ['password' => bcrypt($request->get('password'))]
         ));
 
         return response()->json([
