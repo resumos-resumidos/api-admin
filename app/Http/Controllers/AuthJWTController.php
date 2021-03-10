@@ -16,7 +16,9 @@ class AuthJWTController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        if (!$token = auth()->attempt($request->only(['email', 'password']))) {
+        $token = auth()->attempt($request->only(['email', 'password']));
+
+        if (!$token) {
             throw new HttpResponseException(
                 response()->json(
                     'A senha inserida está incorreta.',
@@ -61,7 +63,9 @@ class AuthJWTController extends Controller
      */
     public function refresh(): JsonResponse
     {
-        return $this->createNewToken(auth()->refresh());
+        $token = auth()->refresh();
+
+        return $this->createNewToken($token);
     }
 
     /**
