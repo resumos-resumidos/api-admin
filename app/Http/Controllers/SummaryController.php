@@ -13,7 +13,7 @@ class SummaryController extends Controller
      */
     public function index(): JsonResponse
     {
-        $summaries = Summary::all();
+        $summaries = Summary::all()->sortBy('title')->values();
 
         foreach ($summaries as $summary) {
             $summary->content->discipline;

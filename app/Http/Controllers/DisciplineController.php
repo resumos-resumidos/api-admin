@@ -14,7 +14,7 @@ class DisciplineController extends Controller
      */
     public function index(): JsonResponse
     {
-        $disciplines = Discipline::all();
+        $disciplines = Discipline::all()->sortBy('title')->values();
 
         return response()->json($disciplines, JsonResponse::HTTP_OK);
     }

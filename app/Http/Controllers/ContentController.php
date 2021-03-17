@@ -14,7 +14,7 @@ class ContentController extends Controller
      */
     public function index(): JsonResponse
     {
-        $contents = Content::all();
+        $contents = Content::all()->sortBy('title')->values();
 
         foreach ($contents as $content) {
             $content->discipline;
