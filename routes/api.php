@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthJWTController;
 use App\Http\Controllers\DisciplineController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\SummaryController;
+use App\Http\Controllers\HomeController;
 
 Route::post('auth/login', [AuthJWTController::class, 'login']);
 Route::post('auth/register', [AuthJWTController::class, 'register']);
@@ -13,6 +14,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('auth/logout', [AuthJWTController::class, 'logout']);
     Route::post('auth/refresh', [AuthJWTController::class, 'refresh']);
     Route::get('auth/me', [AuthJWTController::class, 'me']);
+
+    Route::get('home', [HomeController::class, 'index']);
 
     Route::get('disciplines', [DisciplineController::class, 'index']);
     Route::get('disciplines/{discipline}', [DisciplineController::class, 'show']);
