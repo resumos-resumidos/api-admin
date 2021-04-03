@@ -61,6 +61,14 @@ class AuthJWTController extends Controller
     /**
      * @return JsonResponse
      */
+    public function verify(): JsonResponse
+    {
+        return response()->json([], JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @return JsonResponse
+     */
     public function refresh(): JsonResponse
     {
         $token = auth()->refresh();
