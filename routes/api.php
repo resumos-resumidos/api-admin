@@ -11,6 +11,7 @@ Route::post('auth/login', [AuthJWTController::class, 'login']);
 Route::post('auth/register', [AuthJWTController::class, 'register']);
 
 Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::get('auth/verify');
     Route::post('auth/logout', [AuthJWTController::class, 'logout']);
     Route::post('auth/refresh', [AuthJWTController::class, 'refresh']);
     Route::get('auth/me', [AuthJWTController::class, 'me']);
