@@ -13,10 +13,9 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('discipline_id')
-                  ->constrained();
-            $table->text('title')
-                  ->unique();
+            $table->foreignId('discipline_id')->constrained();
+            $table->text('title')->unique();
+            $table->text('slug')->unique();
             $table->timestamps();
         });
     }

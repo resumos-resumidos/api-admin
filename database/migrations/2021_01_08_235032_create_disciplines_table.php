@@ -13,8 +13,8 @@ class CreateDisciplinesTable extends Migration
     {
         Schema::create('disciplines', function (Blueprint $table) {
             $table->id();
-            $table->text('title')
-                  ->unique();
+            $table->text('title')->unique();
+            $table->text('slug')->unique();
             $table->timestamps();
         });
     }
