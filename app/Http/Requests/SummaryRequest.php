@@ -33,9 +33,7 @@ class SummaryRequest extends FormRequest
             'title' => [
                 'bail',
                 'required',
-                Rule::unique('summaries')->ignore(
-                    $this->route()->parameters['summary'] ?? null
-                )
+                Rule::unique('summaries')->ignore($this->route()->summary)
             ],
             'free' => [
                 'bail',

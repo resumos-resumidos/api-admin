@@ -33,9 +33,7 @@ class ContentRequest extends FormRequest
             'title' => [
                 'bail',
                 'required',
-                Rule::unique('contents')->ignore(
-                    $this->route()->parameters['content'] ?? null
-                )
+                Rule::unique('contents')->ignore($this->route()->content)
             ]
         ];
     }
