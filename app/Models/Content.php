@@ -15,7 +15,8 @@ class Content extends Model
 
     protected $fillable = [
         'discipline_id',
-        'title'
+        'title',
+        'slug',
     ];
 
     /**

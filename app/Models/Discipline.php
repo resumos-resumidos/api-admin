@@ -12,7 +12,8 @@ class Discipline extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'slug',
     ];
 
     /**

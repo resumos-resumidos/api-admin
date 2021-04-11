@@ -14,7 +14,8 @@ class Summary extends Model
     protected $fillable = [
         'content_id',
         'title',
-        'free'
+        'slug',
+        'free',
     ];
 
     /**
