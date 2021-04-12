@@ -34,7 +34,12 @@ class ContentRequest extends FormRequest
                 'bail',
                 'required',
                 Rule::unique('contents')->ignore($this->route()->content)
-            ]
+            ],
+            'slug' => [
+                'bail',
+                'required',
+                Rule::unique('contents')->ignore($this->route()->content)
+            ],
         ];
     }
 
@@ -48,7 +53,9 @@ class ContentRequest extends FormRequest
             'discipline_id.integer' => 'O valor ":input" do campo "Disciplina" é inválido',
             'discipline_id.exists' => 'A "Disciplina" informada não está cadastrada',
             'title.required' => 'O campo "Contéudo" é obrigatório',
-            'title.unique' => 'O contéudo ":input" já está cadastrado'
+            'title.unique' => 'O contéudo ":input" já está cadastrado',
+            'slug.required' => 'O campo "Slug" é obrigatório',
+            'slug.unique' => 'O Slug ":input" já está cadastrado para este contéudo',
         ];
     }
 

@@ -28,7 +28,12 @@ class DisciplineRequest extends FormRequest
                 'bail',
                 'required',
                 Rule::unique('disciplines')->ignore($this->route()->discipline)
-            ]
+            ],
+            'slug' => [
+                'bail',
+                'required',
+                Rule::unique('disciplines')->ignore($this->route()->discipline),
+            ],
         ];
     }
 
@@ -39,7 +44,9 @@ class DisciplineRequest extends FormRequest
     {
         return [
             'title.required' => 'O campo "Disciplina" é obrigatório',
-            'title.unique' => 'A disciplina ":input" já está cadastrada'
+            'title.unique' => 'A disciplina ":input" já está cadastrada',
+            'slug.required' => 'O campo "Slug" é obrigatório',
+            'slug.unique' => 'O Slug ":input" já está cadastrado para esta disciplina',
         ];
     }
 
