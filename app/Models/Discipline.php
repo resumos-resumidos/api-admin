@@ -17,6 +17,14 @@ class Discipline extends Model
     ];
 
     /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * @return HasMany
      */
     public function contents(): HasMany

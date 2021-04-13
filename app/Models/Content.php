@@ -20,6 +20,14 @@ class Content extends Model
     ];
 
     /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * @return BelongsTo
      */
     public function discipline(): BelongsTo

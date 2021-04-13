@@ -19,6 +19,14 @@ class Summary extends Model
     ];
 
     /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * @return BelongsTo
      */
     public function content(): BelongsTo
