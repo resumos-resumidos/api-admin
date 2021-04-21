@@ -14,8 +14,8 @@ class CreateSummariesTable extends Migration
         Schema::create('summaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('content_id')->constrained();
-            $table->text('title')->unique();
-            $table->text('slug')->unique();
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->boolean('free');
             $table->timestamps();
         });
